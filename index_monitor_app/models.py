@@ -29,7 +29,7 @@ class Filter(models.Model):
 
 
 class FacetValue(models.Model):
-    facet = models.ForeignKey(Facet, blank=False, null=False)
+    facet = models.ForeignKey(Facet, blank=False, null=False, on_delete=models.CASCADE)
     value = models.CharField(null=False, blank=False, max_length=50)
     unique_together = ('facet', 'value')
 
@@ -39,9 +39,9 @@ class FacetValue(models.Model):
     
 class FacetValueCount(models.Model):
     count = models.IntegerField(blank=False, null=False)
-    facet_value = models.ForeignKey(FacetValue, blank=False, null=False)
+    facet_value = models.ForeignKey(FacetValue, blank=False, null=False, on_delete=models.CASCADE)
     response_data = models.ForeignKey('ResponseData', blank=False, null=False,
-                                      related_name='facet_value_counts')
+                                      related_name='facet_value_counts', on_delete=models.CASCADE)
     def __str__(self):
         return "{}:{}".format(self.facet_value,
                               self.count)
@@ -65,13 +65,13 @@ class ResponseData(models.Model):
 
 class Response(models.Model):
     index_node = models.ForeignKey(Host, blank=False, null=False,
-                                   related_name='index_node')
+                                   related_name='index_node', on_delete=models.CASCADE)
     status_code = models.IntegerField(blank=False, null=False)
     datetime = models.DateTimeField(blank=False, null=False)
-    data = models.ForeignKey(ResponseData, blank=True, null=True)
+    data = models.ForeignKey(ResponseData, blank=True, null=True, on_delete=models.CASCADE)
     client = models.ForeignKey(Host, blank=True, null=True,
-                               related_name='client')
-    query_type = models.ForeignKey(QueryType)
+                               related_name='client', on_delete=models.PROTECT)
+    query_type = models.ForeignKey(QueryType, on_delete=models.CASCADE)
     def __str__(self):
         return str("response from {} on {}"
                    .format(self.index_node, self.datetime))
