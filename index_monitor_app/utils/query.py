@@ -17,7 +17,11 @@ def do_query(index_node,
         k, v = filter_string.split("=", 1)
         params[k] = v
 
-    response = requests.get(url, params)
+    headers = {
+        'User-Agent': 'python requests -- see https://github.com/alaniwi/index_monitor'
+        }
+        
+    response = requests.get(url, params, headers=headers)
 
     resp = {
         'status_code': response.status_code
