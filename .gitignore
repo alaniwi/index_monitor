@@ -5,3 +5,4 @@ __pycache__
 .#*
 */#*#
 venv
+setup_env_local.sh
