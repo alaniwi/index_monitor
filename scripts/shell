@@ -1,0 +1,12 @@
+#!/bin/sh
+# -*- mode: Python -*-   # for emacs
+
+''''cd `dirname $0` || exit 1; cd ..; . ./setup_env.sh; exec python -i "$0" # '''
+# https://stackoverflow.com/questions/3306518/cannot-pass-an-argument-to-python-with-usr-bin-env-python
+
+import django
+django.setup()
+from index_monitor_app.models import *
+
+responses = Response.objects.all().order_by("datetime")
+print('{} responses in query_set "responses"'.format(len(responses)))
