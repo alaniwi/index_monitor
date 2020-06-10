@@ -13,5 +13,5 @@ if __name__ == '__main__':
                   'esgf-node.llnl.gov',
                   'esgf-node.ipsl.upmc.fr']:
     
-        perform_query_by_name(index, 'CMIP6-basic')
-    
+        #perform_query_by_name(index, 'CMIP6-basic')
+        perform_query_by_name(index, 'general-index')
